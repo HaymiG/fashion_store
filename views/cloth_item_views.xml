@@ -1,0 +1,52 @@
+<odoo>
+  <record id="view_cloth_item_form" model="ir.ui.view">
+    <field name="name">cloth.shop.item.form</field>
+    <field name="model">cloth.shop.item</field>
+    <field name="arch" type="xml">
+      <form string="Clothing Item">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="brand"/>
+            <field name="price"/>
+            <field name="size"/>
+            <field name="category_id"/>
+            <field name="image" widget="image"/>
+          </group>
+          <group>
+            <field name="description"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_cloth_item_tree" model="ir.ui.view">
+    <field name="name">cloth.shop.item.tree</field>
+    <field name="model">cloth.shop.item</field>
+    <field name="arch" type="xml">
+      <tree string="Clothing Items">
+        <field name="name"/>
+        <field name="brand"/>
+        <field name="price"/>
+        <field name="size"/>
+        <field name="category_id"/>
+    
+      </tree>
+    </field>
+  </record>
+
+  <record id="action_cloth_items" model="ir.actions.act_window">
+    <field name="name">Clothing Items</field>
+    <field name="res_model">cloth.shop.item</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_cloth_shop_root" name="Cloth Shop" sequence="10"/>
+  <menuitem id="menu_cloth_shop_item"
+            name="Clothing Items"
+            parent="menu_cloth_shop_root"
+            action="action_cloth_items"
+            sequence="2"/>
+</odoo>
+

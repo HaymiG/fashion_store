@@ -1,0 +1,49 @@
+<odoo>
+  <template id="custom_fashionstore_footer" inherit_id="website.layout" name="Custom FashionStore Footer">
+    <xpath expr="//footer" position="replace">
+      <footer class="custom-fashion-footer">
+        <div class="footer-wrapper">
+
+          <!-- Column 1 -->
+          <div class="footer-column">
+            <h2>FashionStore</h2>
+            <p>
+              FashionStore is your ultimate destination for the latest trends and timeless styles.
+              We bring you carefully curated collections featuring premium quality apparel, accessories,
+              and footwear designed to express your unique personality.
+            </p>
+            <h4>Connect With Us</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/fashionstore" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+              <a href="https://www.instagram.com/fashionstore" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+              <a href="https://twitter.com/fashionstore" target="_blank" title="X"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.tiktok.com/@fashionstore" target="_blank" title="TikTok"><i class="fa fa-music"></i></a>
+              <a href="https://www.pinterest.com/fashionstore" target="_blank" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+              <a href="https://www.youtube.com/fashionstore" target="_blank" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="footer-column">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="/" title="New Arrivals">→ New Arrivals</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="footer-column">
+            <h3>Contact Information</h3>
+            <p><i class="fa fa-map-marker"></i>  addis ababa, bole</p>
+            <p><i class="fa fa-phone"></i> +251 9 123-4567</p>
+            <p><i class="fa fa-envelope"></i> Fashinstore@gmail.com</p>
+            <p><i class="fa fa-clock-o"></i> Monday–Friday: 9am–6pm</p>
+            <p><i class="fa fa-clock-o"></i> Saturday: 10am–4pm</p>
+            <p><i class="fa fa-clock-o"></i> Sunday: closed</p>
+          </div>
+
+        </div>
+      </footer>
+    </xpath>
+  </template>
+</odoo>

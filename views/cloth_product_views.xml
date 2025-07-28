@@ -1,0 +1,45 @@
+<odoo>
+  <!-- Form view -->
+  <record id="view_cloth_category_form" model="ir.ui.view">
+    <field name="name">cloth.shop.category.form</field>
+    <field name="model">cloth.shop.category</field>
+    <field name="arch" type="xml">
+      <form string="Cloth Category">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+            <field name="pos_category_id" readonly="1"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Tree view -->
+  <record id="view_cloth_category_tree" model="ir.ui.view">
+    <field name="name">cloth.shop.category.tree</field>
+    <field name="model">cloth.shop.category</field>
+    <field name="arch" type="xml">
+      <tree string="Cloth Categories">
+        <field name="name"/>
+        <field name="pos_category_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_cloth_category" model="ir.actions.act_window">
+    <field name="name">Clothing Categories</field>
+    <field name="res_model">cloth.shop.category</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <!-- Menu -->
+  <menuitem id="menu_cloth_shop_root" name="Cloth Shop" sequence="10"/>
+  <menuitem id="menu_cloth_shop_category"
+            name="Cloth Categories"
+            parent="menu_cloth_shop_root"
+            action="action_cloth_category"
+            sequence="1"/>
+</odoo>

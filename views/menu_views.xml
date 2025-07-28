@@ -1,0 +1,19 @@
+<odoo>
+  <!-- Action -->
+  <record id="action_cloth_category" model="ir.actions.act_window">
+    <field name="name">Cloth Categories</field>
+    <field name="res_model">cloth.shop.category</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <!-- Root Menu -->
+  <menuitem id="cloth_shop_menu_root"
+            name="Cloth Shop"
+            sequence="10"/>
+
+  <!-- Menu for Categories -->
+  <menuitem id="cloth_shop_menu_category"
+            name="Categories"
+            parent="cloth_shop_menu_root"
+            action="action_cloth_category"/>
+</odoo>

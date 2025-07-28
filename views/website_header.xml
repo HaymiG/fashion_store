@@ -1,0 +1,46 @@
+<odoo>
+  <template id="custom_fashionstore_header" inherit_id="website.layout" name="Custom FashionStore Header">
+    <xpath expr="//header" position="replace">
+      <header id="custom-header" class="custom-header bg-light py-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+          <!-- Logo -->
+          <div class="logo">
+            <a href="/" class="text-decoration-none text-dark fw-bold fs-4">
+              Fashion<span class="text-primary">Store</span>
+            </a>
+          </div>
+
+          <!-- Search -->
+          <form action="/product" method="get" class="d-flex">
+            <input type="text" name="search" placeholder="Search..." class="form-control me-2" t-att-value="request.params.get('search', '')"/>
+            <button type="submit" class="btn btn-outline-primary"><i class="fa fa-search"></i></button>
+          </form>
+
+          <!-- Icons -->
+          <div class="d-flex gap-3">
+            <a href="/account" class="text-dark text-decoration-none"><i class="fa fa-user-o"></i> <span>Account</span></a>
+            <a href="/cart" class="text-dark text-decoration-none">
+              <i class="fa fa-shopping-cart"></i> <span>Cart</span>
+              <span class="badge bg-danger ms-1" t-if="cart_count"><t t-esc="cart_count"/></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-top mt-2">
+          <div class="container">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a t-att-class="'nav-link ' + ('active' if request.httprequest.path == '/' else '')" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a t-att-class="'nav-link ' + ('active' if request.httprequest.path == '/product' else '')" href="/product">Product Details</a>
+              </li>
+              <!-- Add more nav items as needed -->
+            </ul>
+          </div>
+        </nav>
+      </header>
+    </xpath>
+  </template>
+</odoo>
