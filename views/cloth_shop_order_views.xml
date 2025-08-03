@@ -1,0 +1,51 @@
+<odoo>
+  <!-- Order Form View -->
+  <record id="view_form_cloth_shop_order" model="ir.ui.view">
+    <field name="name">cloth.shop.order.form</field>
+    <field name="model">cloth.shop.order</field>
+    <field name="arch" type="xml">
+      <form string="Cloth Shop Order">
+        <sheet>
+          <group>
+            <field name="customer_name"/>
+            <field name="order_date"/>
+          </group>
+          <field name="order_line_ids">
+            <tree editable="bottom">
+              <field name="product_name"/>
+              <field name="quantity"/>
+              <field name="price"/>
+            </tree>
+          </field>
+          <footer>
+            <field name="total_price" readonly="1"/>
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Order Tree View -->
+  <record id="view_tree_cloth_shop_order" model="ir.ui.view">
+    <field name="name">cloth.shop.order.tree</field>
+    <field name="model">cloth.shop.order</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="customer_name"/>
+        <field name="order_date"/>
+        <field name="total_price"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Action to Open Orders -->
+  <record id="action_cloth_shop_order" model="ir.actions.act_window">
+    <field name="name">Cloth Orders</field>
+    <field name="res_model">cloth.shop.order</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <!-- Add Menu -->
+  <menuitem id="menu_cloth_shop_root" name="Cloth Shop" sequence="30"/>
+  <menuitem id="menu_cloth_shop_order" name="Orders" parent="menu_cloth_shop_root" action="action_cloth_shop_order"/>
+</odoo>
