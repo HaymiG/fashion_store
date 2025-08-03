@@ -1,0 +1,59 @@
+/* Container background and padding */
+.container {
+  background-color: #f9f9f9;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Header styling */
+.container h1, .container h4 {
+  color: #222;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Contact info styling */
+.container .col-md-6 p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Map container with rounded corners and shadow */
+.container iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Form input and textarea styling */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 12px 15px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Submit button styling */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #084cdb;
+  border-color: #084cdb;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(8, 76, 219, 0.5);
+}
