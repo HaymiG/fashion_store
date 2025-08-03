@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cloth_shop_item,access_cloth_shop_item,model_cloth_shop_item,,1,1,1,1
+access_cloth_shop_category,access_cloth_shop_category,model_cloth_shop_category,,1,1,1,1
+access_cloth_shop_order,access_cloth_shop_order,model_cloth_shop_order,,1,1,1,1
+access_cloth_shop_order_line,access_cloth_shop_order_line,model_cloth_shop_order_line,,1,1,1,1
+
