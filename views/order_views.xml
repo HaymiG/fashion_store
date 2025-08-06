@@ -1,0 +1,81 @@
+<odoo>
+  <!-- Cloth Shop Order Tree View -->
+  <record id="view_cloth_shop_order_tree" model="ir.ui.view">
+    <field name="name">cloth.shop.order.tree</field>
+    <field name="model">cloth.shop.order</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="order_name"/>
+        <field name="customer_name"/>
+        <field name="order_date"/>
+        <field name="total_amount"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Cloth Shop Order Form View -->
+  <record id="view_cloth_shop_order_form" model="ir.ui.view">
+    <field name="name">cloth.shop.order.form</field>
+    <field name="model">cloth.shop.order</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="order_name" readonly="1"/>
+            <field name="customer_name"/>
+            <field name="customer_email"/>
+            <field name="customer_phone"/>
+            <field name="order_date"/>
+            <field name="state"/>
+          </group>
+          <group>
+            <field name="order_lines">
+              <tree editable="bottom">
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="subtotal"/>
+              </tree>
+            </field>
+          </group>
+          <group>
+            <field name="total_amount" readonly="1"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Cloth Shop Order Line Form View (Optional) -->
+  <record id="view_cloth_shop_order_line_form" model="ir.ui.view">
+    <field name="name">cloth.shop.order.line.form</field>
+    <field name="model">cloth.shop.order.line</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="order_id"/>
+          <field name="product_id"/>
+          <field name="quantity"/>
+          <field name="price_unit"/>
+          <field name="subtotal" readonly="1"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+  <!-- Action for Orders -->
+  <record id="action_cloth_shop_orders" model="ir.actions.act_window">
+    <field name="name">Orders</field>
+    <field name="res_model">cloth.shop.order</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+  <!-- Menu for Orders -->
+ <menuitem id="cloth_shop_order_menu"
+          name="Orders"
+          parent="menu_cloth_shop_root"
+          action="action_cloth_shop_orders"
+          sequence="20"/>
+
+</odoo>
