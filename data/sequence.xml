@@ -3,9 +3,10 @@
     <record id="seq_cloth_shop_order" model="ir.sequence">
       <field name="name">Cloth Shop Order</field>
       <field name="code">cloth.shop.order</field>
-      <field name="prefix">CSO</field>
+      <field name="prefix">ORD/</field>
       <field name="padding">5</field>
-      <field name="company_id" eval="False"/>
+      <field name="number_next">1</field>
     </record>
   </data>
 </odoo>
+
