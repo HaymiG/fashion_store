@@ -113,3 +113,29 @@ class ClothShopWebsite(http.Controller):
     @http.route('/contact', type='http', auth="public", website=True)
     def contact_page(self, **kwargs):
         return request.render('shop.contact_us_page')
+    @http.route('/submit_order', type='http', auth="public", website=True, methods=['POST'])
+    def submit_order(self, **post):
+        order_lines = []  # Build this from cart session
+        cart = request.session.get('cloth_cart', {})
+        for product_id_str, quantity in cart.items():
+            product_id = int(product_id_str)
+            product = request.env['cloth.shop.item'].sudo().browse(product_id)
+            order_lines.append((0, 0, {
+                'product_id': product.id,
+                'quantity': quantity,
+                'price_unit': product.price,
+            }))
+
+        order = request.env['cloth.shop.order'].sudo().create({
+            'customer_name': post.get('name'),
+            'customer_email': post.get('email'),
+            'customer_phone': post.get('phone'),
+            'order_lines': order_lines
+        })
+
+        # Clear cart
+        request.session['cloth_cart'] = {}
+
+        return request.render("shop.order_thank_you_template", {'order': order})
+
+
