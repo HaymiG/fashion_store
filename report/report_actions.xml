@@ -1,0 +1,11 @@
+<odoo>
+  <report
+    id="report_cloth_shop_order"
+    string="Order Report"
+    model="cloth.shop.order"
+    report_type="qweb-pdf"
+    name="shop.report_cloth_shop_order_document"
+    file="shop.report_cloth_shop_order_document"
+    print_report_name="'Order - %s' % (object.order_name)"
+  />
+</odoo>
