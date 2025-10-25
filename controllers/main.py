@@ -8,9 +8,13 @@ class ClothShopWebsite(http.Controller):
 
     @http.route('/', type='http', auth='public', website=True)
     def homepage(self, **kwargs):
-        items = request.env['cloth.shop.item'].sudo().search([], order='create_date desc', limit=4)
-        categories = request.env['cloth.shop.category'].sudo().search([], limit=4)
+        # Latest 8 products
+        items = request.env['product.template'].sudo().search([], limit=8)
+        categories = request.env['product.category'].sudo().search([('id','>',5)])
+
         cart = request.session.get('cart', {})
+
+
         cart_count = sum(cart.values()) if cart else 0
         return request.render('shop.homepage_template', {
             'items': items,
@@ -30,22 +34,22 @@ class ClothShopWebsite(http.Controller):
             domain.append(('name', 'ilike', search))
         if min_price:
             try:
-                domain.append(('price', '>=', float(min_price)))
+                domain.append(('list_price', '>=', float(min_price)))
             except ValueError:
                 pass
         if max_price:
             try:
-                domain.append(('price', '<=', float(max_price)))
+                domain.append(('list_price', '<=', float(max_price)))
             except ValueError:
                 pass
         if category_id:
             try:
-                domain.append(('category_id', '=', int(category_id)))
+                domain.append(('categ_id', '=', int(category_id)))
             except ValueError:
                 pass
 
-        items = request.env['cloth.shop.item'].sudo().search(domain)
-        categories = request.env['cloth.shop.category'].sudo().search([])
+        items = request.env['product.template'].sudo().search(domain)
+        categories = request.env['product.category'].sudo().search([])
 
         return request.render('shop.product_template', {
             'items': items,
@@ -56,24 +60,21 @@ class ClothShopWebsite(http.Controller):
             'selected_category': int(category_id) if category_id else None,
         })
 
-    @http.route('/add_to_cart/<int:item_id>', type='http', auth='public', website=True)
-    def add_to_cart(self, item_id, **kwargs):
-        _logger.info(f"Add to cart called with item_id: {item_id}")
+    @http.route('/add_to_cart/<int:product_id>', type='http', auth='public', website=True)
+    def add_to_cart(self, product_id, **kwargs):
+        _logger.info(f"Add to cart called with product_id: {product_id}")
 
-        item = request.env['cloth.shop.item'].sudo().browse(item_id)
-        if not item.exists():
-            _logger.warning(f"Item with ID {item_id} not found. Redirecting to /product")
+        product = request.env['product.template'].sudo().browse(product_id)
+        if not product.exists():
+            _logger.warning(f"Product with ID {product_id} not found. Redirecting to /product")
             return request.redirect('/product')
 
         cart = request.session.get('cart', {})
         if not isinstance(cart, dict):
             cart = {}
 
-        item_id_str = str(item_id)
-        if item_id_str in cart:
-            cart[item_id_str] += 1
-        else:
-            cart[item_id_str] = 1
+        product_id_str = str(product_id)
+        cart[product_id_str] = cart.get(product_id_str, 0) + 1
 
         request.session['cart'] = cart
         request.session.modified = True
@@ -86,19 +87,19 @@ class ClothShopWebsite(http.Controller):
         items = []
         total_price = 0
 
-        for item_id_str, quantity in cart.items():
+        for product_id_str, quantity in cart.items():
             try:
-                item_id = int(item_id_str)
-                product = request.env['cloth.shop.item'].sudo().browse(item_id)
+                product_id = int(product_id_str)
+                product = request.env['product.template'].sudo().browse(product_id)
                 if product.exists():
                     items.append({
                         'product': product,
                         'quantity': quantity,
-                        'subtotal': product.price * quantity,
+                        'subtotal': product.list_price * quantity,
                     })
-                    total_price += product.price * quantity
+                    total_price += product.list_price * quantity
             except Exception as e:
-                _logger.error(f"Error loading product {item_id_str}: {str(e)}")
+                _logger.error(f"Error loading product {product_id_str}: {str(e)}")
 
         return request.render('shop.cart_template', {
             'items': items,
@@ -108,34 +109,53 @@ class ClothShopWebsite(http.Controller):
     @http.route('/cart', type='http', auth='public', website=True)
     def cart_redirect(self, **kw):
         return request.redirect('/shop/cart')
-    
-    
+
+    @http.route('/wishlist', type='http', auth='public', website=True)
+    def wishlist_redirect(self, **kw):
+        return request.redirect('/shop/wishlist')
+
     @http.route('/contact', type='http', auth="public", website=True)
     def contact_page(self, **kwargs):
         return request.render('shop.contact_us_page')
-    @http.route('/submit_order', type='http', auth="public", website=True, methods=['POST'])
-    def submit_order(self, **post):
-        order_lines = []  # Build this from cart session
-        cart = request.session.get('cloth_cart', {})
-        for product_id_str, quantity in cart.items():
-            product_id = int(product_id_str)
-            product = request.env['cloth.shop.item'].sudo().browse(product_id)
-            order_lines.append((0, 0, {
-                'product_id': product.id,
-                'quantity': quantity,
-                'price_unit': product.price,
-            }))
 
+    @http.route('/contact/submit', type='http', auth='public', methods=['POST'], website=True)
+    def submit_contact(self, **post):
+        # Save submitted data to database
+        request.env['shop.contact.message'].sudo().create({
+            'name': post.get('name'),
+            'email': post.get('email'),
+            'phone': post.get('phone'),
+            'message': post.get('message'),
+        })
+        # Redirect to the correct thank-you page
+        return request.redirect('/contact/thankyou')
+
+    @http.route('/contact/thankyou', type='http', auth="public", website=True)
+    def contact_thankyou(self, **kw):
+        # Render the thank-you template (matches your XML ID)
+        return request.render('shop.contact_thankyou_page')
+
+    @http.route('/about', type='http', auth="public", website=True)
+    def about_us(self, **kw):
+        return request.render('shop.about_us_page', {})
+    @http.route('/shop/order/submit', type='http', auth='public', methods=['POST'], website=True)
+    def submit_order(self, **post):
+        # Create order
         order = request.env['cloth.shop.order'].sudo().create({
-            'customer_name': post.get('name'),
-            'customer_email': post.get('email'),
-            'customer_phone': post.get('phone'),
-            'order_lines': order_lines
+            'customer_name': post.get('customer_name'),
+            'customer_email': post.get('customer_email'),
+            'customer_phone': post.get('customer_phone'),
         })
 
-        # Clear cart
-        request.session['cloth_cart'] = {}
+        # Create order lines (assuming fields: product_id, quantity, price_unit)
+        products = post.get('products', [])  # products should be a list of dicts
+        for line in products:
+            request.env['cloth.shop.order.line'].sudo().create({
+                'order_id': order.id,
+                'product_id': line.get('product_id'),
+                'quantity': line.get('quantity', 1),
+                'price_unit': line.get('price_unit', 0.0),
+            })
 
-        return request.render("shop.order_thank_you_template", {'order': order})
-
-
+        # Redirect to a simple thank-you page
+        return request.render('shop.shop_order_thankyou')
