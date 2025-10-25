@@ -14,7 +14,12 @@
         'views/website_footer.xml',
         'views/order_views.xml',
         'views/custom_contact_page.xml',
+        'views/product_category_views.xml',
         'views/custom_header.xml',
+        'views/tnx.xml',
+        'views/aboutus.xml',
+        'views/contact_form.xml', 
+        # 'views/order.xml',
        
         'report/report_templates.xml',
         'report/report_actions.xml',
@@ -24,14 +29,19 @@
      'controllers': [
         'controllers/main.py',
     ],
+    
+
+
+
+
     'assets': {
         'web.assets_frontend': [
             'shop/static/src/css/custom_footer.css',
             'shop/static/src/css/custom_header.css',  
             'shop/static/src/css/homepage.css',
-            # 'shop/static/src/css/contact.css',
             'shop/static/src/img/homepage.png',
             'shop/static/src/img/logo.png',
+          'shop/static/src/video/fashion_hero.mp4',
           
         ],
     },
