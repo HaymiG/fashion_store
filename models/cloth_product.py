@@ -11,15 +11,11 @@ class ClothShopCategory(models.Model):
 
     @api.model
     def create(self, vals):
-        # Create the cloth category
         category = super().create(vals)
-
-        # Create matching POS category
         pos_category = self.env['pos.category'].create({
             'name': category.name,
             'image_128': category.image,
         })
-
         category.pos_category_id = pos_category.id
         return category
 
@@ -38,26 +34,36 @@ class ProductTemplate(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         records = super().create(vals_list)
+        # Sync only after variants exist
         records._sync_to_cloth_shop_item()
         return records
 
     def write(self, vals):
         res = super().write(vals)
-        self._sync_to_cloth_shop_item()
+        # Only sync if relevant fields changed
+        sync_fields = {'name', 'list_price', 'description', 'description_sale', 'image_1920', 'size', 'cloth_category_id'}
+        if sync_fields.intersection(vals.keys()):
+            self._sync_to_cloth_shop_item()
         return res
 
     def unlink(self):
         for product in self:
-            self.env['cloth.shop.item'].search([
-                ('product_id', '=', product.product_variant_id.id)
-            ]).unlink()
+            variant = product.product_variant_id
+            if variant:
+                self.env['cloth.shop.item'].search([
+                    ('product_id', '=', variant.id)
+                ]).unlink()
         return super().unlink()
 
     def _sync_to_cloth_shop_item(self):
         for product in self:
-            item_vals = {
+            variant = product.product_variant_id
+            if not variant:
+                continue  # skip if variant not ready
+
+            vals = {
                 'name': product.name,
-                'product_id': product.product_variant_id.id,
+                'product_id': variant.id,
                 'brand': getattr(product, 'brand', ''),
                 'price': product.list_price,
                 'description': product.description_sale or product.description,
@@ -65,10 +71,12 @@ class ProductTemplate(models.Model):
                 'size': product.size or 'm',
                 'category_id': product.cloth_category_id.id if product.cloth_category_id else False,
             }
-            existing_item = self.env['cloth.shop.item'].search([
-                ('product_id', '=', product.product_variant_id.id)
+
+            item = self.env['cloth.shop.item'].search([
+                ('product_id', '=', variant.id)
             ], limit=1)
-            if existing_item:
-                existing_item.write(item_vals)
+
+            if item:
+                item.write(vals)
             else:
-                self.env['cloth.shop.item'].create(item_vals)
+                self.env['cloth.shop.item'].create(vals)
