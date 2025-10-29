@@ -3,4 +3,5 @@ access_cloth_shop_item,access_cloth_shop_item,model_cloth_shop_item,,1,1,1,1
 access_cloth_shop_category,access_cloth_shop_category,model_cloth_shop_category,,1,1,1,1
 access_cloth_shop_order,access_cloth_shop_order,model_cloth_shop_order,,1,1,1,1
 access_cloth_shop_order_line,access_cloth_shop_order_line,model_cloth_shop_order_line,,1,1,1,1
+access_contact_message,access_contact_message,model_shop_contact_message,,1,1,1,1
 
