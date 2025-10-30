@@ -1,23 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <template id="contact_us_page" name="Contact Us Page">
     <t t-call="website.layout">
-      <div class="container">
-        <!-- Page Title -->
-        <h1 class="text-center mb-4">Get in Touch</h1>
 
-        <div class="row">
-          <!-- Contact Info -->
-          <div class="col-md-6">
+      <style>
+        /* Container */
+        .contact-page-container {
+          max-width: 1200px;
+          margin: 2rem auto;
+          padding: 1.5rem;
+          background-color: #fff;
+          border: 3px solid #fdf7f2;
+          border-radius: 20px;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Page Title */
+        .contact-page-title {
+          text-align: center;
+          font-size: 3rem;
+          font-weight: 800;
+          color: #2c2c2c;
+          margin-bottom: 1.5rem;
+          background-color: #fdf7f2;
+          padding: 1rem 0;
+          border-radius: 15px;
+        }
+
+        /* Contact Details */
+        .contact-details h4 {
+          font-weight: 700;
+          margin-bottom: 0.8rem;
+        }
+        .contact-details p {
+          margin-bottom: 0.4rem;
+        }
+
+        /* Opening Hours */
+        .opening-hours {
+          list-style: none;
+          padding: 0;
+          margin-top: 0.5rem;
+        }
+        .opening-hours li {
+          display: flex;
+          justify-content: space-between;
+          border: 1px solid #fdf7f2;
+          border-radius: 10px;
+          padding: 0.5rem 1rem;
+          margin-bottom: 0.3rem;
+          background-color: #fdf7f2;
+          font-weight: 600;
+          color: #2c2c2c;
+          font-size: 0.95rem;
+        }
+
+        /* Map Wrapper */
+        .map-wrapper {
+          border: 1px solid #fdf7f2;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        /* Contact Form */
+        .contact-form-row h4 {
+          font-weight: 700;
+          margin-bottom: 0.8rem;
+        }
+        .contact-form-row .form-control {
+          border-radius: 10px;
+          margin-bottom: 0.8rem;
+        }
+
+        /* Submit Button */
+        .contact-submit-btn {
+          background-color: #000;
+          color: #fff;
+          padding: 0.6rem 1.5rem;
+          border-radius: 25px;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .contact-submit-btn:hover {
+          background-color: #333;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+          .contact-page-container {
+            padding: 1rem;
+            margin: 1rem;
+          }
+          .contact-page-title {
+            font-size: 2rem;
+            padding: 0.6rem 0;
+          }
+          .opening-hours li {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.8rem;
+          }
+          .contact-form-row .form-control {
+            font-size: 0.9rem;
+          }
+        }
+      </style>
+
+      <div class="contact-page-container">
+        <!-- Page Title -->
+        <h1 class="contact-page-title">Get in Touch</h1>
+
+        <div class="row contact-info-row">
+          <!-- Contact Details -->
+          <div class="col-lg-6 contact-details">
             <h4>Contact Details</h4>
             <p><strong>Phone:</strong> +251 912 345 678</p>
             <p><strong>Email:</strong> fashionstore@gmail.com</p>
             <p><strong>Address:</strong> Addis Ababa, Ethiopia</p>
+
+            <!-- Opening Hours -->
+            <h5 class="mt-3">Opening Hours</h5>
+            <ul class="opening-hours">
+              <li><span>Mon–Fri</span><span>08:00 AM - 08:00 PM</span></li>
+              <li><span>Saturday</span><span>09:00 AM - 06:00 PM</span></li>
+              <li><span>Sunday</span><span>Closed</span></li>
+            </ul>
           </div>
 
           <!-- Google Map -->
-          <div class="col-md-6">
+          <div class="col-lg-6 map-container">
             <h4>Our Location</h4>
-            <div style="border:1px solid #ccc; overflow:hidden; border-radius:10px;">
+            <div class="map-wrapper">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.371584118313!2d38.770436614328364!3d8.980603892099652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85a49bd9b1e3%3A0x5d74fdff6e4a0afc!2sAddis%20Ababa!5e0!3m2!1sen!2set!4v1629876543210"
                 width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
@@ -26,30 +142,34 @@
           </div>
         </div>
 
-        <hr class="my-5"/>
+        <hr class="my-4"/>
 
         <!-- Contact Form -->
-        <div class="row">
+        <div class="row contact-form-row">
           <div class="col-12">
             <h4>Send Us a Message</h4>
-            <form method="post" action="/contactus">
+            <form t-att-action="'/contact/submit'" method="post" class="contact-form mt-4">
+              <!-- CSRF Token for Odoo 17 -->
+              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+              
               <div class="mb-3">
-                <label>Your Name</label>
-                <input type="text" name="name" required="required" class="form-control"/>
+                <input type="text" name="name" placeholder="Your Name" required="required" class="form-control"/>
               </div>
               <div class="mb-3">
-                <label>Your Email</label>
-                <input type="email" name="email" required="required" class="form-control"/>
+                <input type="email" name="email" placeholder="Your Email" required="required" class="form-control"/>
               </div>
               <div class="mb-3">
-                <label>Your Message</label>
-                <textarea name="message" rows="4" class="form-control" required="required"></textarea>
+                <input type="text" name="phone" placeholder="Your Phone" class="form-control"/>
               </div>
-              <button type="submit" class="btn btn-primary">Send</button>
+              <div class="mb-3">
+                <textarea name="message" placeholder="Your Message" required="required" class="form-control"></textarea>
+              </div>
+              <button type="submit" class="contact-submit-btn">Send Message</button>
             </form>
           </div>
         </div>
       </div>
+
     </t>
   </template>
 </odoo>
