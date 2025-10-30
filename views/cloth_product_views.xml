@@ -10,6 +10,7 @@
             <field name="name"/>
             <field name="description"/>
             <field name="pos_category_id" readonly="1"/>
+            <field name="image" widget="image"/>
           </group>
         </sheet>
       </form>
@@ -41,5 +42,6 @@
             name="Cloth Categories"
             parent="menu_cloth_shop_root"
             action="action_cloth_category"
-            sequence="1"/>
+            sequence="10"
+            />
 </odoo>
