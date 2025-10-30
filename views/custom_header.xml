@@ -1,88 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <!-- Header override -->
-  <template id="custom_fashionstore_header" inherit_id="website.layout" name="Custom FashionStore Header">
+  <template id="custom_fashionstore_header" inherit_id="website.layout" name="Custom Minimalist Header">
     <xpath expr="//header" position="replace">
-      <header id="custom-header" class="custom-header">
-        <div class="header-top d-flex justify-content-between align-items-center px-3 py-2 flex-wrap gap-2">
-          <div class="logo mb-2 mb-md-0">
-            <img src="/shop/static/src/img/logo.png" alt="Fashion Store Logo" class="img-fluid" style="height: 70px; max-width: 120px;" />
+      <header id="custom-header">
+        <nav class="navbar navbar-expand-lg container-fluid">
+          <!-- Logo -->
+          <a class="navbar-brand" href="/" aria-label="Home">
+            <img src="/shop/static/src/img/logo.png" alt="Fashion Store Logo" class="img-fluid logo-img"/>
+          </a>
+
+          <!-- Mobile Toggle -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavbar"
+                  aria-controls="headerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navigation Links -->
+          <div class="collapse navbar-collapse" id="headerNavbar">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a t-attf-class="nav-link #{'active' if request.httprequest.path == '/' else ''}" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a t-attf-class="nav-link #{'active' if '/product' in request.httprequest.path else ''}" href="/product">Products</a>
+              </li>
+              <li class="nav-item">
+                <a t-attf-class="nav-link #{'active' if '/about' in request.httprequest.path else ''}" href="/about">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a t-attf-class="nav-link #{'active' if '/contact' in request.httprequest.path else ''}" href="/contact">Contact</a>
+              </li>
+            </ul>
+
+            <!-- Right Icons -->
+            <div class="header-icons d-flex align-items-center gap-3">
+              <a t-attf-class="nav-icon #{'active' if '/shop/cart' in request.httprequest.path else ''}" href="/shop/cart" aria-label="Cart">
+                <i class="fa fa-shopping-cart fa-lg"></i>
+                <span class="badge bg-dark position-absolute top-0 start-100 translate-middle" t-if="cart_count">
+                  <t t-esc="cart_count"/>
+                </span>
+              </a>
+              <a t-attf-class="nav-icon #{'active' if '/my/home' in request.httprequest.path else ''}" href="/my/home" aria-label="Account">
+                <i class="fa fa-user-o fa-lg"></i>
+              </a>
+              <a t-attf-class="nav-icon #{'active' if '/shop/wishlist' in request.httprequest.path else ''}" href="/shop/wishlist" aria-label="Wishlist">
+                <i class="fa fa-heart-o fa-lg"></i>
+                <span class="badge bg-dark position-absolute top-0 start-100 translate-middle" t-if="wishlist_count">
+                  <t t-esc="wishlist_count"/>
+                </span>
+              </a>
+            </div>
           </div>
-
-          <div class="header-icons d-flex gap-3 align-items-center flex-wrap justify-content-center">
-            <!-- Home -->
-            <a href="/" class="text-decoration-none d-flex align-items-center gap-1 header-link px-3 py-2 rounded">
-              <i class="fa fa-home"></i> <span class="d-none d-sm-inline">Home</span>
-            </a>
-
-            <!-- Product Details -->
-            <a href="/product" class="text-decoration-none d-flex align-items-center gap-1 header-link px-3 py-2 rounded">
-              <i class="fa fa-th-large"></i> <span class="d-none d-sm-inline">Product</span>
-            </a>
-
-            <!-- Account -->
-            <a href="/my/home" class="text-decoration-none d-flex align-items-center gap-1 header-link px-3 py-2 rounded">
-              <i class="fa fa-user-o"></i> <span class="d-none d-sm-inline">Account</span>
-            </a>
-
-            <!-- Cart -->
-            <a href="/shop/cart" class="text-decoration-none position-relative d-flex align-items-center gap-1 header-link px-3 py-2 rounded">
-              <i class="fa fa-shopping-cart"></i> <span class="d-none d-sm-inline">Cart</span>
-              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" t-if="cart_count" style="font-size:0.7rem; min-width:18px; min-height:18px;">
-                <t t-esc="cart_count"/>
-              </span>
-            </a>
-
-            <!-- Contact Us -->
-            <a href="/contact" class="text-decoration-none d-flex align-items-center gap-1 header-link px-3 py-2 rounded">
-             <i class="fa fa-map-marker"></i> <span class="d-none d-sm-inline">Contact</span>
-            </a>
-          </div>
-        </div>
-
-        <style>
-          /* Header responsiveness */
-          #custom-header .header-top {
-            flex-wrap: wrap;
-            gap: 0.5rem;
-          }
-          #custom-header .header-icons {
-            gap: 0.8rem;
-            font-size: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-          }
-          /* Hide text on xs screens */
-          #custom-header .header-icons span {
-            white-space: nowrap;
-          }
-          @media (max-width: 768px) {
-            /* Smaller logo on tablets/mobile */
-            #custom-header .logo img {
-              height: 60px !important;
-              max-width: 100px !important;
-            }
-            #custom-header .header-icons a {
-              padding: 10px 12px !important;
-              font-size: 1.1rem !important;
-            }
-          }
-          @media (max-width: 576px) {
-            /* Hide text label on very small screens */
-            #custom-header .header-icons span {
-              display: none;
-            }
-            #custom-header .header-icons a {
-              padding: 12px 14px !important;
-              font-size: 1.3rem !important;
-            }
-            /* Adjust cart badge for mobile */
-            #custom-header .header-icons a .badge {
-              font-size: 0.6rem !important;
-              min-width: 16px !important;
-              min-height: 16px !important;
-            }
-          }
-        </style>
+        </nav>
       </header>
     </xpath>
   </template>
