@@ -42,11 +42,12 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem id="menu_cloth_shop_root" name="Cloth Shop" sequence="10"/>
+ 
   <menuitem id="menu_cloth_shop_item"
             name="Clothing Items"
             parent="menu_cloth_shop_root"
             action="action_cloth_items"
-            sequence="2"/>
+            sequence="15"
+            />
 </odoo>
 
