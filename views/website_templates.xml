@@ -1,218 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <!-- Header override -->
- <template id="custom_fashionstore_header" inherit_id="website.layout" name="Custom FashionStore Header">
-    <xpath expr="//header" position="replace">
-      <header id="custom-header" class="custom-header">
-        <div class="header-top d-flex justify-content-between align-items-center px-4 py-3">
-          <div class="logo">
-            <span class="brand fs-4 fw-bold">Fashion<span class="text-primary">Store</span></span>
-          </div>
+  <data>
+    <!-- Homepage Template -->
+    <template id="shop.homepage_template" name="Home Page">
+      <t t-call="website.layout">
+        <head>
+          <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+          <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        </head>
 
-          <form action="/product" method="get" class="search-bar d-flex mx-4 flex-grow-1">
-            <input type="text" name="search" placeholder="Search for products..." class="form-control me-2" t-att-value="request.params.get('search', '')"/>
-            <button type="submit" class="btn btn-outline-light"><i class="fa fa-search"></i></button>
-          </form>
-
-          <div class="header-icons d-flex gap-4 align-items-center">
-            <!-- Home -->
-            <a href="/" class="text-decoration-none d-flex align-items-center gap-1 header-link">
-              <i class="fa fa-home"></i> <span>Home</span>
-            </a>
-
-            <!-- Product Details -->
-            <a href="/product" class="text-decoration-none d-flex align-items-center gap-1 header-link">
-              <i class="fa fa-th-large"></i> <span>Product Details</span>
-            </a>
-
-            <!-- Account -->
-            <a href="/account" class="text-decoration-none d-flex align-items-center gap-1 header-link">
-              <i class="fa fa-user-o"></i> <span>Account</span>
-            </a>
-
-            <!-- Cart -->
-            <a href="/shop/cart" class="text-decoration-none position-relative d-flex align-items-center gap-1 header-link">
-              <i class="fa fa-shopping-cart"></i> <span>Cart</span>
-              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" t-if="cart_count">
-                <t t-esc="cart_count"/>
-              </span>
-            </a>
-          </div>
+        <!-- Hero Section -->
+       
+       
+        <section class="s_hero_section">
+    <div class="hero-container">
+        <div class="hero-text-content">
+            <h1 class="hero-title">
+                Where Fashion <br/> Meets Passion
+            </h1>
+            <p class="hero-subtitle">
+                Discover the latest trends and timeless styles crafted for you.
+            </p>
+            <a href="/shop" class="hero-button">Explore Now</a>
         </div>
 
-        <nav class="navbar bg-light border-top">
-          <ul class="navbar-nav d-flex flex-row justify-content-center gap-4 py-2 mb-0">
-            <li class="nav-item">
-              <a t-att-class="'nav-link ' + ('active' if request.httprequest.path == '/' else '')" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a t-att-class="'nav-link ' + ('active' if request.httprequest.path == '/product' else '')" href="/product">Product Details</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </xpath>
-  </template>
-  <!-- Homepage Template -->
-  <template id="shop.homepage_template" name="Home Page">
-    <t t-call="website.layout">
-      <!-- Hero Section -->
-     <div class="header bg-light py-5">
-  <div class="container">
-    <div class="d-flex flex-wrap flex-md-nowrap align-items-center">
-      <!-- Text Left -->
-      <div class="col-12 col-md-6 px-3">
-        <h1 class="display-5 fw-bold">Dress the Way You Want to Be <br/>Remembered!</h1>
-        <p class="lead">Because style is a way to say who you are without speaking. <br/>Trendy. Timeless. Totally You.</p>
-        <a href="/product" class="btn btn-primary btn-lg mt-3">Explore Now <i class="fa fa-arrow-right"></i></a>
-      </div>
-
-      <!-- Image Right -->
-      <div class="col-12 col-md-6 text-center px-3">
-        <img src="shop/static/src/img/homepage.png" alt="Banner" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;" />
-      </div>
-    </div>
-  </div>
-</div>
-
-
-      <!-- Categories Section -->
-      <!-- Categories Section -->
-<div class="categories my-5">
-  <div class="small-container">
-    <h2 class="section-title text-center mb-4">Shop by Category</h2>
-    <div class="row g-4 justify-content-center">
-      <t t-foreach="categories" t-as="cat">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <a t-att-href="'/product?category_id=%d' % cat.id" 
-             class="category-card d-block text-center text-decoration-none text-dark p-3 border rounded shadow-sm h-100 position-relative overflow-hidden">
-             
-            <t t-if="cat.image">
-              <img t-att-src="'/web/image/cloth.shop.category/' + str(cat.id) + '/image'" 
-                   alt="Category Image" 
-                   class="img-fluid mb-3 rounded category-image" 
-                   style="height:180px; object-fit:cover;"/>
-              <div class="category-overlay"></div>
-            </t>
-            
-            <h5 class="category-name fw-semibold"><t t-esc="cat.name"/></h5>
-          </a>
+        <div class="hero-image-container">
+            <img src="/shop/static/src/img/abc.png" 
+                 alt="Fashion Showcase" class="main-img"/>
         </div>
-      </t>
     </div>
-  </div>
-</div>
+</section>
 
-      <!-- New Arrivals Section -->
-      <div class="collection-container py-5 bg-light">
-        <div class="container">
-          <div class="text-center mb-5">
-            <h2 class="fw-bold">Discover Our Latest Styles</h2>
-            <p class="text-muted">Browse new arrivals and timeless classics</p>
-          </div>
-          <div class="row g-4">
-            <t t-foreach="items" t-as="item">
-              <div class="col-12">
-                <div class="card flex-row shadow-sm h-100">
-                  <div class="col-md-4">
-                    <t t-if="item.image">
-                      <img t-att-src="image_data_uri(item.image)" alt="Item Image" class="img-fluid rounded-start w-100 h-100" style="object-fit: cover;" />
-                    </t>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h4 class="card-title fw-bold"><t t-esc="item.name"/></h4>
-                      <p class="card-text"><t t-esc="item.description or 'No description available.'"/></p>
-                      <p class="h5 text-danger mb-3">$<t t-esc="item.price"/></p>
-                      <a class="btn btn-outline-dark" t-att-href="'/product?search=' + item.name">Shop Now</a>
+
+       
+       
+       
+        <!-- Categories Slider Section -->
+        <section class="categories-slider-section my-5 py-4 overflow-hidden">
+          <div class="container">
+            <h2 class="section-title text-center mb-5">Shop by Category</h2>
+            <div class="swiper category-swiper">
+              <div class="swiper-wrapper">
+                <t t-foreach="categories" t-as="cat">
+                  <div class="swiper-slide">
+                    <div class="category-card position-relative rounded-circle overflow-hidden shadow-sm mx-auto">
+                      <a t-att-href="'/product?category_id=%d' % cat.id" class="d-block w-100 h-100">
+                        <img t-att-src="'/web/image/product.category/%d/image' % cat.id"
+                             class="w-100 h-100 object-fit-cover"
+                             t-att-alt="cat.name"/>
+                        <div class="category-overlay d-flex flex-column justify-content-center align-items-center text-white text-center">
+                          <h5 class="fw-bold m-0"><t t-esc="cat.name"/></h5>
+                        </div>
+                      </a>
                     </div>
                   </div>
+                </t>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </section>
+
+       
+       
+       
+      
+        <!-- New Arrivals Section -->
+<div class="collection-container py-5 bg-light">
+  <div class="container px-3">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Discover Our Latest Styles</h2>
+      <p class="text-muted">Browse new arrivals and timeless classics</p>
+    </div>
+    <div class="row g-3">
+      <t t-foreach="items" t-as="item">
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden d-flex flex-column">
+            <img t-att-src="'/web/image/product.template/%d/image_1920' % item.id"
+                 alt="Item Image" class="card-img-top"
+                 style="height:220px; object-fit:cover;" />
+            <div class="card-body px-3 py-3 d-flex flex-column">
+              <h5 class="card-title fw-semibold text-dark mb-2"><t t-esc="item.name"/></h5>
+              <p class="text-muted mb-2">$<t t-esc="item.list_price"/></p>
+              <a t-att-href="item.website_url"
+                 class="text-decoration-none mt-auto text-primary fw-medium d-inline-flex align-items-center">
+                View Details <i class="fa fa-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </t>
+    </div>
+  </div>
+</div>
+
+
+       
+       
+       
+       
+<section class="about-us-section py-5">
+  <div class="container py-4">
+    <!-- About Us Title -->
+    <h2 class="about-title mb-5 fw-bold">About Us</h2>
+
+    <div class="row align-items-center mb-5">
+      <!-- Video Column -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="position-relative overflow-hidden rounded-4 about-video-wrapper">
+    <video autoplay="true" muted="true" loop="true" playsinline="true" class="w-100 rounded-4" style="height:400px; object-fit:cover;">
+    <source src="/shop/static/src/video/fashion_hero.mp4" type="video/mp4"/>
+    Your browser does not support the video tag.
+</video>
+
+
+  <div class="video-overlay d-flex justify-content-center align-items-center">
+    <h4 class="fw-bold">Leading Fashion Store</h4>
+  </div>
+</div>
+
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-lg-6">
+        <div class="about-description p-lg-4">
+          <h3 class="fw-bold mb-3">Why Choose Us?</h3>
+          <p class="text-muted mb-0">
+            We don’t just sell clothes. Every piece we offer is chosen with your style, lifestyle, and personality in mind. 
+            From everyday wear to special occasions, each item reflects the environment you want to create and the statement you want to make.
+             Our collections are a natural extension of who you are, helping you express yourself effortlessly through fashion.
+          </p>
+             <a href="/about" class="learn-more-button">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section inside About Us -->
+    <div class="features-container p-4 rounded-4 mt-4">
+      <div class="row text-center g-4">
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-box p-3 h-100">
+            <i class="fa fa-truck fa-2x mb-2 text-primary"></i>
+            <h5 class="fw-bold mb-1">Free Delivery</h5>
+            <p class="text-muted small">On All Orders</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-box p-3 h-100">
+            <i class="fa fa-refresh fa-2x mb-2 text-primary"></i>
+            <h5 class="fw-bold mb-1">10 Days Returns</h5>
+            <p class="text-muted small">Moneyback Guarantee</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-box p-3 h-100">
+            <i class="fa fa-gift fa-2x mb-2 text-primary"></i>
+            <h5 class="fw-bold mb-1">Offer &amp; Gifts</h5>
+            <p class="text-muted small">On All Orders</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-box p-3 h-100">
+            <i class="fa fa-lock fa-2x mb-2 text-primary"></i>
+            <h5 class="fw-bold mb-1">Secure Payments</h5>
+            <p class="text-muted small">100% Secure</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+        <!-- Homepage CSS & JS -->
+        <style>
+          .categories-slider-section {opacity:0;transform:translateY(40px);transition:opacity 0.8s ease-out, transform 0.8s ease-out;}
+          .categories-slider-section.is-visible {opacity:1;transform:translateY(0);}
+          .category-swiper {padding:0 15px 40px 15px;}
+          .swiper-slide {width:auto!important;display:flex;justify-content:center;}
+          .category-card {width:150px;height:150px;flex-shrink:0;transition:transform 0.3s ease, box-shadow 0.3s ease;}
+          .category-card:hover {transform:scale(1.08);box-shadow:0 8px 25px rgba(0,0,0,0.15)!important;}
+          .category-card .category-overlay {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);opacity:0;transition:opacity 0.3s ease;}
+          .category-card:hover .category-overlay {opacity:1;}
+          .category-card .category-overlay h5 {transform:translateY(15px);transition:transform 0.3s ease;}
+          .category-card:hover .category-overlay h5 {transform:translateY(0);}
+          .swiper-button-next,.swiper-button-prev {color:#007bff;background-color:rgba(255,255,255,0.8);border-radius:50%;width:44px;height:44px;box-shadow:0 2px 10px rgba(0,0,0,0.1);transition:background-color 0.2s ease;}
+          .swiper-button-next:hover,.swiper-button-prev:hover {background-color:#fff;}
+          .swiper-button-next::after,.swiper-button-prev::after {font-size:18px;font-weight:bold;}
+          .swiper-pagination-bullet-active {background:#007bff;}
+          @media (max-width:768px){.category-card{width:120px;height:120px;}.swiper-button-next,.swiper-button-prev{width:34px;height:34px;}.swiper-button-next::after,.swiper-button-prev::after{font-size:14px;}}
+          .text-pink-500 {color:#ff69b4;}
+          .about-us-section .image-overlay {background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 100%);}
+          .about-us-section .image-overlay h4 {transform:translateY(15px);transition:transform 0.3s ease;}
+          .about-us-section .image-overlay:hover h4 {transform:translateY(0);}
+          .about-us-section .btn-dark:hover {background-color:#444;}
+          .text-shadow {text-shadow:2px 2px 4px rgba(0,0,0,0.5);}
+          .line-clamp-4 {-webkit-box-orient:vertical;-webkit-line-clamp:4;display:-webkit-box;overflow:hidden;}
+          .features-section .fa {font-size:2rem;color:#ff69b4;}
+        </style>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.category-swiper', {
+              grabCursor:true,slidesPerView:'auto',spaceBetween:20,
+              freeMode:{enabled:true,sticky:false,momentum:true},
+              breakpoints:{576:{spaceBetween:20},768:{spaceBetween:30},992:{spaceBetween:30},1200:{spaceBetween:40}},
+              navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},
+              pagination:{el:'.swiper-pagination',clickable:true}
+            });
+            const sliderSection=document.querySelector('.categories-slider-section');
+            const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}});},{threshold:0.1});
+            if(sliderSection){observer.observe(sliderSection);}
+          });
+        </script>
+      </t>
+    </template>
+
+    <!-- Product Listing Template -->
+    <template id="shop.product_template" name="Product Listing Page">
+      <t t-call="website.layout">
+        <div class="container my-4 px-3">
+          <h1 class="text-center mb-4">Our Collection</h1>
+          <!-- Filter Form -->
+          <form method="get" action="/product" class="d-flex flex-wrap gap-2 mb-4 justify-content-center">
+            <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value="search" style="max-width:250px;"/>
+            <input type="number" step="0.01" name="min_price" class="form-control" placeholder="Min Price" t-att-value="min_price" style="max-width:140px;"/>
+            <input type="number" step="0.01" name="max_price" class="form-control" placeholder="Max Price" t-att-value="max_price" style="max-width:140px;"/>
+            <select name="category_id" class="form-select" style="max-width:180px;">
+              <option value="">All Categories</option>
+              <t t-foreach="categories" t-as="cat">
+                <option t-att-value="cat.id" t-att-selected="cat.id == selected_category">
+                  <t t-esc="cat.name"/>
+                </option>
+              </t>
+            </select>
+            <button class="btn btn-primary px-4" type="submit">Filter</button>
+          </form>
+          
+
+          <!-- Products Grid -->
+          <div class="row g-3">
+            <t t-foreach="items" t-as="item">
+              <div class="col-6 col-md-4 col-lg-3">
+                <div class="card h-100 d-flex flex-column">
+                  <img t-att-src="'/web/image/product.template/%d/image_1920' % item.id"
+                       class="card-img-top" alt="Item Image" style="height:220px; object-fit:cover;"/>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><t t-esc="item.name"/></h5>
+                    <p class="card-text text-muted mb-2">$<t t-esc="item.list_price"/></p>
+                    <p class="card-text flex-grow-1"><t t-esc="item.description_sale or ''"/></p>
+                    <a t-att-href="item.website_url" class="btn btn-outline-primary mt-auto w-100">View Details</a>
+                  </div>
                 </div>
               </div>
             </t>
           </div>
         </div>
-      </div>
-
-      <style>
-      .category-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  color: #5a4e42; /* warm soft brown base color */
-}
-
-.category-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(90, 78, 66, 0.15); /* subtle warm shadow */
-  color: #f3c6aa !important; /* pastel peach on hover */
-}
-
-.category-name {
-  font-size: 1.1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-      </style>
-    </t>
-  </template>
-
-  <!-- Product Listing Template -->
-  <template id="shop.product_template" name="Product Listing Page">
-    <t t-call="website.layout">
-      <div class="container my-5">
-        <h1 class="text-center mb-4">Our Collection</h1>
-
-        <!-- Filter Form -->
-        <!-- Filter Form -->
-<form method="get" action="/product" class="d-flex flex-wrap gap-3 mb-4 justify-content-center align-items-center">
-  
-  <div class="input-group" style="min-width: 200px;">
-    <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value="search"/>
-  </div>
-  
-  <div class="input-group" style="max-width: 140px;">
-    <input type="number" step="0.01" name="min_price" class="form-control" placeholder="Min Price" t-att-value="min_price"/>
-  </div>
-  
-  <div class="input-group" style="max-width: 140px;">
-    <input type="number" step="0.01" name="max_price" class="form-control" placeholder="Max Price" t-att-value="max_price"/>
-  </div>
-  
-  <div class="input-group" style="max-width: 180px;">
-    <select name="category_id" class="form-select">
-      <option value="">All Categories</option>
-      <t t-foreach="categories" t-as="cat">
-        <option t-att-value="cat.id" t-att-selected="cat.id == selected_category"><t t-esc="cat.name"/></option>
       </t>
-    </select>
-  </div>
-  
-  <div>
-    <button class="btn btn-primary" type="submit">Filter</button>
-  </div>
-  
-</form>
-
-
-
-        <!-- Products Grid -->
-        <div class="row">
-          <t t-foreach="items" t-as="item">
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <t t-if="item.image">
-                  <img t-att-src="image_data_uri(item.image)" class="card-img-top" alt="Item Image"/>
-                </t>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title"><t t-esc="item.name"/></h5>
-                  <p class="card-text text-muted">$<t t-esc="item.price"/></p>
-                  <p class="card-text"><t t-esc="item.description or ''"/></p>
-                  <a t-att-href="'/add_to_cart/%s' % item.id" class="btn btn-primary mt-auto">Add to Cart</a>
-                </div>
-              </div>
-            </div>
-          </t>
-        </div>
-      </div>
-    </t>
-  </template>
+    </template>
+  </data>
 </odoo>
