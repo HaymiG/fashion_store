@@ -9,7 +9,7 @@
   <!-- Root Menu -->
   <menuitem id="cloth_shop_menu_root"
             name="Cloth Shop"
-            sequence="10"/>
+            /> 
 
   <!-- Menu for Categories -->
   <menuitem id="cloth_shop_menu_category"
