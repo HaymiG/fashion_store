@@ -1,0 +1,112 @@
+/* Container Styling */
+.contact-us-container {
+  background-color: #fff;
+  border-radius: 20px;
+  border: 3px solid #fdf7f2;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Page Title */
+.contact-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #fdf7f2;
+  color: #2c2c2c;
+  padding: 1.5rem 0;
+  border-radius: 20px;
+  border: 3px solid #fdf7f2;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+/* Info Boxes */
+.contact-info-box, .map-container, .contact-form-box {
+  border: 3px solid #fdf7f2;
+  border-radius: 20px;
+  padding: 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+/* Opening/Closing Time Boxes */
+.header-info-box {
+  flex: 1;
+  border: 2px solid #fdf7f2;
+  border-radius: 15px;
+  text-align: center;
+  background-color: #fdf7f2;
+  padding: 1rem;
+}
+
+/* Map Wrapper */
+.map-wrapper {
+  border: 2px solid #fdf7f2;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Inputs and Textarea */
+.contact-form-box .form-control {
+  border: 2px solid #fdf7f2;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-form-box .form-control:focus {
+  border-color: #d98d5a;
+  box-shadow: 0 0 5px rgba(217,141,90,0.5);
+  outline: none;
+}
+
+/* Send Button - Black style */
+.contact-form-box .btn-send-message {
+  display: inline-block !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  padding: 10px 30px !important;
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-decoration: none !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  margin-top: 1rem;
+}
+
+.contact-form-box .btn-send-message:hover {
+  background-color: #333 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-us-container {
+    padding: 1.5rem;
+  }
+  .contact-title {
+    font-size: 2rem;
+    padding: 1rem 0;
+  }
+  .header-info-box {
+    padding: 0.8rem;
+  }
+  .contact-form-box .btn-send-message {
+    padding: 8px 20px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    font-size: 1.5rem;
+  }
+}
