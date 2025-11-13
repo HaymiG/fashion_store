@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="about_us_page" name="About Us Page">
+    <t t-call="website.layout">
+      <t t-set="title">About Us</t>
+
+      <section class="about-us-section py-5" style="background-color: #fff;">
+        <div class="container py-4">
+
+          <!-- Main Title -->
+          <h2 class="about-title mb-5 fw-bold text-center">About Us</h2>
+
+          <!-- Introduction Row -->
+          <div class="row align-items-center mb-5">
+            <!-- Video Column -->
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <div class="position-relative overflow-hidden rounded-4 about-video-wrapper shadow">
+                <video autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" class="w-100 rounded-4" style="height:400px; object-fit:cover;">
+                  <source src="/shop/static/src/video/fashion_hero.mp4" type="video/mp4"/>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay d-flex justify-content-center align-items-center">
+                  <h4 class="fw-bold text-white">Leading Fashion Store</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Description Column -->
+            <div class="col-lg-6">
+              <div class="about-description p-4 shadow rounded-4" style="background-color:#f9f9f9;">
+                <h3 class="fw-bold mb-3">Our Story</h3>
+                <p class="text-muted mb-3">
+                  We started with a vision to bring high-quality, trendy clothing to fashion lovers everywhere.
+                  From a small boutique to a full-fledged online store, our journey has always been guided by style, quality, and customer satisfaction.
+                </p>
+                <p class="text-muted mb-0">
+                  Our mission is to make fashion accessible, empowering every individual to express their personality through our curated collections.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why Choose Us -->
+          <div class="about-description my-5">
+            <h3 class="fw-bold mb-4 text-center">Why Choose Us?</h3>
+            <div class="row g-4 text-center">
+
+              <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow h-100 feature-hover" style="background-color:#fdf4f5;">
+                  <i class="fa fa-tshirt fa-2x mb-3 text-danger"></i>
+                  <h5 class="fw-bold mb-2">Premium Quality</h5>
+                  <p class="text-muted small">Every item is carefully crafted from high-quality materials ensuring comfort, durability, and elegance.</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow h-100 feature-hover" style="background-color:#f0f7ff;">
+                  <i class="fa fa-fire fa-2x mb-3 text-primary"></i>
+                  <h5 class="fw-bold mb-2">Trendy Collections</h5>
+                  <p class="text-muted small">Our collections are constantly updated to follow the latest fashion trends, keeping you stylish and unique.</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow h-100 feature-hover" style="background-color:#fff4e6;">
+                  <i class="fa fa-tags fa-2x mb-3 text-warning"></i>
+                  <h5 class="fw-bold mb-2">Affordable Prices</h5>
+                  <p class="text-muted small">We provide premium fashion at competitive prices, making trendy outfits accessible for everyone.</p>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow h-100 feature-hover" style="background-color:#f0fff0;">
+                  <i class="fa fa-headset fa-2x mb-3 text-success"></i>
+                  <h5 class="fw-bold mb-2">Exceptional Service</h5>
+                  <p class="text-muted small">Our dedicated customer support ensures a seamless shopping experience and expert fashion guidance.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Features -->
+          <div class="features-container p-4 rounded-4 mt-4 shadow bg-light">
+            <div class="row text-center g-4">
+              <div class="col-sm-6 col-md-3">
+                <div class="feature-box p-3 h-100 feature-hover">
+                  <i class="fa fa-truck fa-2x mb-2 text-primary"></i>
+                  <h5 class="fw-bold mb-1">Free Delivery</h5>
+                  <p class="text-muted small">On All Orders</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="feature-box p-3 h-100 feature-hover">
+                  <i class="fa fa-refresh fa-2x mb-2 text-primary"></i>
+                  <h5 class="fw-bold mb-1">10 Days Returns</h5>
+                  <p class="text-muted small">Moneyback Guarantee</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="feature-box p-3 h-100 feature-hover">
+                  <i class="fa fa-gift fa-2x mb-2 text-primary"></i>
+                  <h5 class="fw-bold mb-1">Offers &amp; Gifts</h5>
+                  <p class="text-muted small">Exclusive Deals &amp; Gifts</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-3">
+                <div class="feature-box p-3 h-100 feature-hover">
+                  <i class="fa fa-lock fa-2x mb-2 text-primary"></i>
+                  <h5 class="fw-bold mb-1">Secure Payments</h5>
+                  <p class="text-muted small">100% Secure</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra Section: Our Promise -->
+<!-- Extra Section: Our Promise -->
+<div class="about-description my-5 p-5 shadow rounded-4 text-center" style="background-color: #fdf7f2; color: #333;">
+  <h3 class="fw-bold mb-3">Our Promise</h3>
+  <p class="mb-0" style="font-size: 1.1rem; line-height: 1.6;">
+    Every item we offer is carefully selected for style and quality. We promise an enjoyable shopping experience, fast delivery, and fashion that makes you feel confident and stylish.
+    <br/><br/>
+    <strong>💖 Quality, Style, and Happiness in Every Purchase!</strong>
+  </p>
+</div>
+
+
+        </div>
+      </section>
+
+      <style>
+        .feature-hover {
+          transition: all 0.3s ease;
+        }
+        .feature-hover:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        .video-overlay h4 {
+          font-size: 1.75rem;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+      </style>
+
+    </t>
+  </template>
+</odoo>
