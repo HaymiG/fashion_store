@@ -1,0 +1,12 @@
+<odoo>
+  <template id="contact_thankyou_page" name="Contact Thank You Page">
+    <t t-call="website.layout">
+      <div class="container py-5 text-center fade-in">
+        <img src="/shop/static/src/img/logo.png" style="max-height:80px;" class="mb-4"/>
+        <h2 class="mb-3">Thank you for your contact information  </h2>
+        <p>Your message has been received. We’ll get back to you shortly.</p>
+        <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+      </div>
+    </t>
+  </template>
+</odoo>
