@@ -1,0 +1,11 @@
+<odoo>
+  <template id="shop_order_thankyou" name="Order Thank You">
+    <t t-call="website.layout">
+      <div class="container text-center py-5">
+        <h2>Thank you for your order!</h2>
+        <p>Your order has been received.</p>
+        <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+      </div>
+    </t>
+  </template>
+</odoo>
